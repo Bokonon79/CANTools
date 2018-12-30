@@ -3,6 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CANConvert", "CANConvert\CANConvert.csproj", "{53128E82-9FAF-4BD4-A95F-8E0AC654B17A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1D334571-0B82-401F-80D5-87EB22D0CE8A} = {1D334571-0B82-401F-80D5-87EB22D0CE8A}
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CANLib", "CANLib\CANLib.csproj", "{1D334571-0B82-401F-80D5-87EB22D0CE8A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CANLibUnitTest", "CANLibUnitTest\CANLibUnitTest.csproj", "{97524631-7D61-4ADB-8EA4-E48FCF1E1737}"
@@ -13,6 +18,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{53128E82-9FAF-4BD4-A95F-8E0AC654B17A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53128E82-9FAF-4BD4-A95F-8E0AC654B17A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53128E82-9FAF-4BD4-A95F-8E0AC654B17A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53128E82-9FAF-4BD4-A95F-8E0AC654B17A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1D334571-0B82-401F-80D5-87EB22D0CE8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1D334571-0B82-401F-80D5-87EB22D0CE8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D334571-0B82-401F-80D5-87EB22D0CE8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
