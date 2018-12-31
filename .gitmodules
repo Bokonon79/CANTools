@@ -1,3 +1,6 @@
 [submodule "CANSamples"]
 	path = CANSamples
 	url = https://brianman.visualstudio.com/CANSamples/_git/CANSamples
+[submodule "SavvyCAN"]
+	path = SavvyCAN
+	url = https://github.com/collin80/SavvyCAN.git
