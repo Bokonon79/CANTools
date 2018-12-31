@@ -1,0 +1,3 @@
+[submodule "CANSamples"]
+	path = CANSamples
+	url = https://brianman.visualstudio.com/CANSamples/_git/CANSamples
