@@ -13,6 +13,15 @@ using System.Text.RegularExpressions;
 "0","0.000","8:09:42:48.7953090'",43447.7100146116,"","0x2E1","","Default: PDO","","Default: TPDO 2 of Node 0x61 (97)","","10 21 04 00 00 00 00 00 ",". ! . . . . . . ","U:0 S:0","8","10 21 04 00 00 00 00 00"
 */
 
+// http://www.cpearson.com/Excel/datetime.htm
+// Base is "January 00, 1900" and there is an artificial
+// Lotus-compat day in the calculation.  Thus, "-2".
+// The Ticks is in unused of 100 nanoseconds, so divide
+// by 10 to produce the desired units of microseconds.
+//
+// Powershell example:
+// ([DateTime]::Parse("January 01, 1900 Z")).AddDays(43447.7100146116 - 2)
+
 namespace CANLib
 {
   public class CANopen_Magic_Log : CSV_Log<CANopen_Magic_Log>
