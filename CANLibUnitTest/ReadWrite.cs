@@ -29,6 +29,10 @@ namespace CANLibUnitTest
             CANLib.Log log = null;
             switch (resourceName)
             {
+              case "CANLibUnitTest.Resources.BusMasterLog.log":
+                log = new BusMaster_Log();
+                break;
+
               case "CANLibUnitTest.Resources.GVRET_Log.csv":
                 log = new GVRET_Log();
                 break;

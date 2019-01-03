@@ -56,6 +56,9 @@
     <EmbeddedResource Include="..\CANSamples\Model3OwnersClub.com\threads\diagnostic-port-and-data-access.7502\post-186027.csv">
       <Link>Resources\post-186027.csv</Link>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\SavvyCAN\examples\BusMasterLog.log">
+      <Link>Resources\BusMasterLog.log</Link>
+    </EmbeddedResource>
     <EmbeddedResource Include="..\SavvyCAN\examples\GVRET_Log.csv">
       <Link>Resources\GVRET_Log.csv</Link>
     </EmbeddedResource>
