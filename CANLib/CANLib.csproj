@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="CANopen_Magic_Log.cs" />
     <Compile Include="CSV_Log.cs" />
+    <Compile Include="DataWithColumns.cs" />
     <Compile Include="GVRET_Log.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
