@@ -11,9 +11,11 @@ namespace CANLib
 {
   public class DataWithColumns
   {
-    protected DataWithColumns(SeparatorType separator)
+    protected DataWithColumns(SeparatorType separator, bool headerRow, bool trailingSpaceInDataRows)
     {
       Separator = separator;
+      HeaderRow = headerRow;
+      TrailingSpaceInDataRows = trailingSpaceInDataRows;
     }
 
     public IEnumerable<string> Columns
@@ -40,12 +42,24 @@ namespace CANLib
     }
     protected List<List<string>> data;
 
+    public bool HeaderRow
+    {
+      get;
+      private set;
+    }
+
     public enum SeparatorType
     {
       Comma,
       Space
     }
     public SeparatorType Separator
+    {
+      get;
+      private set;
+    }
+
+    public bool TrailingSpaceInDataRows
     {
       get;
       private set;
@@ -104,7 +118,10 @@ namespace CANLib
       try
       {
         ReadCustomHeader(streamReader);
-        ReadColumnHeader(streamReader);
+        if (HeaderRow)
+        {
+          ReadColumnHeader(streamReader);
+        }
         ReadData(streamReader, dataPointLimit);
 
         if (!LoadValidate())
@@ -245,10 +262,17 @@ namespace CANLib
             break;
         }
 
-        streamWriter.WriteLine(BuildRow(columns, separatorString, quotedHeaderColumnsOverride));
+        if (HeaderRow)
+        {
+          streamWriter.WriteLine(BuildRow(columns, separatorString, quotedHeaderColumnsOverride));
+        }
         foreach (List<string> row in data)
         {
           string rowString = BuildRow(row, separatorString, quotedDataColumnsOverride);
+          if (TrailingSpaceInDataRows)
+          {
+            rowString += " ";
+          }
           streamWriter.WriteLine(rowString);
         }
       }

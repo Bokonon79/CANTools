@@ -34,6 +34,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusMaster_Log.cs" />
     <Compile Include="CANopen_Magic_Log.cs" />
     <Compile Include="CSV_Log.cs" />
     <Compile Include="DataWithColumns.cs" />
