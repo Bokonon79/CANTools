@@ -141,7 +141,7 @@ namespace CANLib
       return true;
     }
 
-    protected void ParseFixedString(StreamReader streamReader, string expected)
+    protected void ReadFixedString(StreamReader streamReader, string expected)
     {
       string line = streamReader.ReadLine();
       if (line != expected)

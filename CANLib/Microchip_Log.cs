@@ -54,10 +54,10 @@ namespace CANLib
       );
     protected override void ReadCustomHeader(StreamReader streamReader)
     {
-      ParseFixedString(streamReader, Divider);
-      ParseFixedString(streamReader, Microchip_Technology_Inc);
-      ParseFixedString(streamReader, CAN_BUS_Analyzer);
-      ParseFixedString(streamReader, SavvyCAN_Exporter);
+      ReadFixedString(streamReader, Divider);
+      ReadFixedString(streamReader, Microchip_Technology_Inc);
+      ReadFixedString(streamReader, CAN_BUS_Analyzer);
+      ReadFixedString(streamReader, SavvyCAN_Exporter);
 
       string line = streamReader.ReadLine();
       Match matchStart = regexStart.Match(line);
@@ -74,7 +74,7 @@ namespace CANLib
       int second = int.Parse(matchStart.Groups[6].Value);
       Start = new DateTime(year, month, day, hour, minute, second, 0, DateTimeKind.Utc);
 
-      ParseFixedString(streamReader, Divider);
+      ReadFixedString(streamReader, Divider);
 
       SetColumnNames(AssumedColumnNames);
 

@@ -74,7 +74,7 @@ namespace CANLib
     const string StartChannelBaudRate = @"***START CHANNEL BAUD RATE***";
     void ParseChannelBaudRate(StreamReader streamReader)
     {
-      ParseFixedString(streamReader, StartChannelBaudRate);
+      ReadFixedString(streamReader, StartChannelBaudRate);
 
       // REVIEW: Support multiple channels.
       string line = streamReader.ReadLine();
@@ -86,7 +86,7 @@ namespace CANLib
       Debug.Assert(matchChannel.Groups.Count == 3);
       channels.Add(uint.Parse(matchChannel.Groups[1].Value), matchChannel.Groups[2].Value);
 
-      ParseFixedString(streamReader, EndChannelBaudRate);
+      ReadFixedString(streamReader, EndChannelBaudRate);
     }
 
     static readonly Regex regexColumnNames = new Regex(
@@ -116,8 +116,8 @@ namespace CANLib
     const string StartDatabaseFiles = @"***START DATABASE FILES (DBF/DBC)***";
     void ParseDatabaseFiles(StreamReader streamReader)
     {
-      ParseFixedString(streamReader, StartDatabaseFiles);
-      ParseFixedString(streamReader, EndDatabaseFiles);
+      ReadFixedString(streamReader, StartDatabaseFiles);
+      ReadFixedString(streamReader, EndDatabaseFiles);
     }
 
     static readonly Regex regexProgram = new Regex(
@@ -171,12 +171,12 @@ namespace CANLib
     protected override void ReadCustomHeader(StreamReader streamReader)
     {
       ParseProgram(streamReader);
-      ParseFixedString(streamReader, ProtocolCan);
-      ParseFixedString(streamReader, DoNotEdit);
-      ParseFixedString(streamReader, StartLoggingSession);
+      ReadFixedString(streamReader, ProtocolCan);
+      ReadFixedString(streamReader, DoNotEdit);
+      ReadFixedString(streamReader, StartLoggingSession);
       ParseStartDateAndTime(streamReader);
-      ParseFixedString(streamReader, Hex);
-      ParseFixedString(streamReader, SystemMode);
+      ReadFixedString(streamReader, Hex);
+      ReadFixedString(streamReader, SystemMode);
       ParseChannelBaudRate(streamReader);
       ParseDatabaseFiles(streamReader);
       ParseColumnNames(streamReader);
