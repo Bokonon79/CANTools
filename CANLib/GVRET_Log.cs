@@ -157,6 +157,50 @@ namespace CANLib
       }
     }
 
+    public GVRET_Log(CRTD_Log logSrc) : this()
+    {
+      SetColumnNames(ExpectedColumnNames);
+
+      data = new List<List<string>>();
+      foreach (IEnumerable<string> rowSrcEnumerable in logSrc.Data)
+      {
+        List<string> rowSrc = new List<string>(rowSrcEnumerable);
+
+        List<string> dataFields = new List<string>();
+        for (int i = 3; i < rowSrc.Count; i++)
+        {
+          dataFields.Add(rowSrc[i]);
+        }
+        if (dataFields.Count > 8)
+        {
+          dataFields.RemoveRange(8, dataFields.Count - 8);
+        }
+        while (dataFields.Count < 8)
+        {
+          dataFields.Add("");
+        }
+
+        List<string> rowTgt = new List<string>
+          {
+            ((UInt64)(double.Parse(rowSrc[0]) * 1000000)).ToString(),
+            rowSrc[2],
+            "false",
+            rowSrc[1],
+            (rowSrc.Count - 3).ToString(),
+            dataFields[0],
+            dataFields[1],
+            dataFields[2],
+            dataFields[3],
+            dataFields[4],
+            dataFields[5],
+            dataFields[6],
+            dataFields[7]
+          };
+
+        data.Add(rowTgt);
+      }
+    }
+
     public GVRET_Log(Microchip_Log logSrc) : this()
     {
       SetColumnNames(ExpectedColumnNames);
