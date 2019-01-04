@@ -62,6 +62,9 @@
     <EmbeddedResource Include="..\SavvyCAN\examples\GVRET_Log.csv">
       <Link>Resources\GVRET_Log.csv</Link>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\SavvyCAN\examples\MicrochipLog.log">
+      <Link>Resources\MicrochipLog.log</Link>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CANLib\CANLib.csproj">

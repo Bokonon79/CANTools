@@ -37,6 +37,10 @@ namespace CANLibUnitTest
                 log = new GVRET_Log();
                 break;
 
+              case "CANLibUnitTest.Resources.MicrochipLog.log":
+                log = new Microchip_Log();
+                break;
+
               case "CANLibUnitTest.Resources.post-186027.csv":
                 log = new CANopen_Magic_Log();
                 break;
