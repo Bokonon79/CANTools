@@ -143,11 +143,7 @@ namespace CANLib
 
     protected void ReadBlankLine(StreamReader streamReader)
     {
-      string line = streamReader.ReadLine();
-      if (line.Length > 0)
-      {
-        throw new DataMisalignedException();
-      }
+      ReadFixedString(streamReader, "");
     }
 
     protected void ReadFixedString(StreamReader streamReader, string expected)
