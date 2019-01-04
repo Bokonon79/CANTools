@@ -9,14 +9,5 @@ namespace CANLib
     protected CSV_Log() : base(SeparatorType.Comma, true, false)
     {
     }
-
-    protected void ReadBlankLine(StreamReader streamReader)
-    {
-      string line = streamReader.ReadLine();
-      if (line.Length > 0)
-      {
-        throw new DataMisalignedException();
-      }
-    }
   }
 }
