@@ -33,6 +33,10 @@ namespace CANLibUnitTest
                 log = new BusMaster_Log();
                 break;
 
+              case "CANLibUnitTest.Resources.CRTD_Log.txt":
+                log = new CRTD_Log();
+                break;
+
               case "CANLibUnitTest.Resources.GVRET_Log.csv":
                 log = new GVRET_Log();
                 break;

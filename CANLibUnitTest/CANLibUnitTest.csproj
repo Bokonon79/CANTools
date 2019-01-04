@@ -59,6 +59,9 @@
     <EmbeddedResource Include="..\SavvyCAN\examples\BusMasterLog.log">
       <Link>Resources\BusMasterLog.log</Link>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\SavvyCAN\examples\CRTD_Log.txt">
+      <Link>Resources\CRTD_Log.txt</Link>
+    </EmbeddedResource>
     <EmbeddedResource Include="..\SavvyCAN\examples\GVRET_Log.csv">
       <Link>Resources\GVRET_Log.csv</Link>
     </EmbeddedResource>
