@@ -24,7 +24,7 @@ using System.Text.RegularExpressions;
 
 namespace CANLib
 {
-  public class CANopen_Magic_Log : CSV_Log<CANopen_Magic_Log>
+  public class CANopen_Magic_Log : DataWithColumns, Log
   {
     public readonly static string[] ExpectedColumnNames =
     {
@@ -46,7 +46,7 @@ namespace CANLib
       "Raw Message"
     };
 
-    public CANopen_Magic_Log() : base()
+    public CANopen_Magic_Log() : base(SeparatorType.Comma, true, false)
     {
     }
 

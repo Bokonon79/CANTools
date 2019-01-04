@@ -10,7 +10,7 @@ Time Stamp,ID,Extended,Bus,LEN,D1,D2,D3,D4,D5,D6,D7,D8
 
 namespace CANLib
 {
-  public class GVRET_Log : CSV_Log<GVRET_Log>
+  public class GVRET_Log : DataWithColumns, Log
   {
     public readonly static string[] ExpectedColumnNames =
     {
@@ -29,7 +29,7 @@ namespace CANLib
       "D8"
     };
 
-    public GVRET_Log()
+    public GVRET_Log() : base(SeparatorType.Comma, true, false)
     {
     }
 
@@ -39,7 +39,7 @@ namespace CANLib
       @"^(\d+):(\d+):(\d+):(\d+)$",
       RegexOptions.Compiled | RegexOptions.CultureInvariant
       );
-    public GVRET_Log(BusMaster_Log logSrc)
+    public GVRET_Log(BusMaster_Log logSrc) : this()
     {
       SetColumnNames(ExpectedColumnNames);
 
@@ -108,7 +108,7 @@ namespace CANLib
       }
     }
 
-    public GVRET_Log(CANopen_Magic_Log logSrc)
+    public GVRET_Log(CANopen_Magic_Log logSrc) : this()
     {
       SetColumnNames(ExpectedColumnNames);
 
@@ -157,7 +157,7 @@ namespace CANLib
       }
     }
 
-    public GVRET_Log(Microchip_Log logSrc)
+    public GVRET_Log(Microchip_Log logSrc) : this()
     {
       SetColumnNames(ExpectedColumnNames);
 
