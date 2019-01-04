@@ -41,7 +41,6 @@
     <Compile Include="Log.cs" />
     <Compile Include="Microchip_Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SSV_Log.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

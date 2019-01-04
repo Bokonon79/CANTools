@@ -23,7 +23,7 @@ using System.Text.RegularExpressions;
 
 namespace CANLib
 {
-  public class BusMaster_Log : SSV_Log<BusMaster_Log>
+  public class BusMaster_Log : DataWithColumns, Log
   {
     public readonly static string[] ExpectedColumnNames =
     {
@@ -36,7 +36,7 @@ namespace CANLib
       "DataBytes"
     };
 
-    public BusMaster_Log() : base(false, true)
+    public BusMaster_Log() : base(SeparatorType.Space, false, true)
     {
     }
 
