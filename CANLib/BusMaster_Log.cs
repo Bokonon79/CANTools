@@ -72,7 +72,7 @@ namespace CANLib
       );
     const string EndChannelBaudRate = @"***END CHANNEL BAUD RATE***";
     const string StartChannelBaudRate = @"***START CHANNEL BAUD RATE***";
-    void ParseChannelBaudRate(StreamReader streamReader)
+    void ReadChannelBaudRate(StreamReader streamReader)
     {
       ReadFixedString(streamReader, StartChannelBaudRate);
 
@@ -93,7 +93,7 @@ namespace CANLib
       @"^\*\*\*(?:<([^>]+)>)+\*\*\*$",
       RegexOptions.Compiled | RegexOptions.CultureInvariant
       );
-    void ParseColumnNames(StreamReader streamReader)
+    void ReadColumnNames(StreamReader streamReader)
     {
       string line = streamReader.ReadLine();
       Match matchColumnNames = regexColumnNames.Match(line);
@@ -114,7 +114,7 @@ namespace CANLib
 
     const string EndDatabaseFiles = @"***END OF DATABASE FILES (DBF/DBC)***";
     const string StartDatabaseFiles = @"***START DATABASE FILES (DBF/DBC)***";
-    void ParseDatabaseFiles(StreamReader streamReader)
+    void ReadDatabaseFiles(StreamReader streamReader)
     {
       ReadFixedString(streamReader, StartDatabaseFiles);
       ReadFixedString(streamReader, EndDatabaseFiles);
@@ -124,7 +124,7 @@ namespace CANLib
       @"^\*\*\*(BUSMASTER Ver \d+\.\d+\.\d+)\*\*\*$",
       RegexOptions.Compiled | RegexOptions.CultureInvariant
       );
-    void ParseProgram(StreamReader streamReader)
+    void ReadProgram(StreamReader streamReader)
     {
       string line = streamReader.ReadLine();
       Match matchProgram = regexProgram.Match(line);
@@ -141,7 +141,7 @@ namespace CANLib
       @"^\*\*\*START DATE AND TIME (\d+):(\d+):(\d+) (\d+):(\d+):(\d+):(\d+)\*\*\*$",
       RegexOptions.Compiled | RegexOptions.CultureInvariant
       );
-    void ParseStartDateAndTime(StreamReader streamReader)
+    void ReadStartDateAndTime(StreamReader streamReader)
     {
       string line = streamReader.ReadLine();
       Match matchStart = regexStart.Match(line);
@@ -170,16 +170,16 @@ namespace CANLib
     const string SystemMode = @"***SYSTEM MODE***";
     protected override void ReadCustomHeader(StreamReader streamReader)
     {
-      ParseProgram(streamReader);
+      ReadProgram(streamReader);
       ReadFixedString(streamReader, ProtocolCan);
       ReadFixedString(streamReader, DoNotEdit);
       ReadFixedString(streamReader, StartLoggingSession);
-      ParseStartDateAndTime(streamReader);
+      ReadStartDateAndTime(streamReader);
       ReadFixedString(streamReader, Hex);
       ReadFixedString(streamReader, SystemMode);
-      ParseChannelBaudRate(streamReader);
-      ParseDatabaseFiles(streamReader);
-      ParseColumnNames(streamReader);
+      ReadChannelBaudRate(streamReader);
+      ReadDatabaseFiles(streamReader);
+      ReadColumnNames(streamReader);
 
       base.ReadCustomHeader(streamReader);
     }
