@@ -85,7 +85,7 @@ namespace CANLib
     static readonly Regex regexFileVersion = new Regex(
       @"^""\$FileVersion=(\d+)\$""$",
       RegexOptions.Compiled | RegexOptions.CultureInvariant);
-    void ParseFileVersion(StreamReader reader)
+    void ReadFileVersion(StreamReader reader)
     {
       string line = reader.ReadLine();
       Match matchFileVersion = regexFileVersion.Match(line);
@@ -100,7 +100,7 @@ namespace CANLib
     static readonly Regex regexProgramAndGeneratedTimestamp = new Regex(
       @"^""(CANopen Magic Ultimate \d+\.\d+ build \d+) Trace Recording, generated on (\d\d/\d\d/\d\d\d\d \d+:\d\d:\d\d [AP]M)""$",
       RegexOptions.Compiled | RegexOptions.CultureInvariant);
-    void ParseProgramAndGeneratedTimestamp(StreamReader reader)
+    void ReadProgramAndGeneratedTimestamp(StreamReader reader)
     {
       string line = reader.ReadLine();
       Match matchProgramAndGeneratedTimestamp = regexProgramAndGeneratedTimestamp.Match(line);
@@ -116,7 +116,7 @@ namespace CANLib
     static readonly Regex regexTimestampMode = new Regex(
       @"^""\$TimestampMode=(.+)\$""$",
       RegexOptions.Compiled | RegexOptions.CultureInvariant);
-    void ParseTimestampMode(StreamReader reader)
+    void ReadTimestampMode(StreamReader reader)
     {
       string line = reader.ReadLine();
       Match matchTimestampMode = regexTimestampMode.Match(line);
@@ -130,9 +130,9 @@ namespace CANLib
 
     protected override void ReadCustomHeader(StreamReader streamReader)
     {
-      ParseProgramAndGeneratedTimestamp(streamReader);
-      ParseFileVersion(streamReader);
-      ParseTimestampMode(streamReader);
+      ReadProgramAndGeneratedTimestamp(streamReader);
+      ReadFileVersion(streamReader);
+      ReadTimestampMode(streamReader);
       ReadBlankLine(streamReader);
 
       base.ReadCustomHeader(streamReader);
