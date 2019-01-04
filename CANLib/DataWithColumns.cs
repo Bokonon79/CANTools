@@ -51,6 +51,7 @@ namespace CANLib
     public enum SeparatorType
     {
       Comma,
+      Semicolon,
       Space
     }
     public SeparatorType Separator
@@ -140,8 +141,21 @@ namespace CANLib
       return true;
     }
 
+    protected void ParseFixedString(StreamReader streamReader, string expected)
+    {
+      string line = streamReader.ReadLine();
+      if (line != expected)
+      {
+        throw new DataMisalignedException();
+      }
+    }
+
     static readonly Regex regexSeparatedValuesByComma = new Regex(
       @"^(?:(?:^|,)(?:()|([^""][^,]*)|""((?:[^""]|"""")*)""))+$",
+      RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    static readonly Regex regexSeparatedValuesBySemicolon = new Regex(
+      @"^(?:(?:^|;)(?:()|([^""][^;]*)|""((?:[^""]|"""")*)""))+$",
       RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
     static readonly Regex regexSeparatedValuesBySpace = new Regex(
@@ -157,6 +171,9 @@ namespace CANLib
       {
         case SeparatorType.Comma:
           regexSeparatedValues = regexSeparatedValuesByComma;
+          break;
+        case SeparatorType.Semicolon:
+          regexSeparatedValues = regexSeparatedValuesBySemicolon;
           break;
         case SeparatorType.Space:
           regexSeparatedValues = regexSeparatedValuesBySpace;
@@ -253,6 +270,9 @@ namespace CANLib
         {
           case SeparatorType.Comma:
             separatorString = ",";
+            break;
+          case SeparatorType.Semicolon:
+            separatorString = ";";
             break;
           case SeparatorType.Space:
             separatorString = " ";

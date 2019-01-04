@@ -120,15 +120,6 @@ namespace CANLib
       ParseFixedString(streamReader, EndDatabaseFiles);
     }
 
-    void ParseFixedString(StreamReader streamReader, string expected)
-    {
-      string line = streamReader.ReadLine();
-      if (line != expected)
-      {
-        throw new DataMisalignedException();
-      }
-    }
-
     static readonly Regex regexProgram = new Regex(
       @"^\*\*\*(BUSMASTER Ver \d+\.\d+\.\d+)\*\*\*$",
       RegexOptions.Compiled | RegexOptions.CultureInvariant
