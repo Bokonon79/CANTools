@@ -50,6 +50,7 @@ namespace CANLibUnitTest
                 break;
             }
             log.Load(streamReader, dataPointLimit);
+            Assert.AreNotEqual(log.DataCount, 0u);
             log.Save(streamWriter);
           }
 
