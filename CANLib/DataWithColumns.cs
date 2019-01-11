@@ -42,6 +42,14 @@ namespace CANLib
     }
     protected List<List<string>> data;
 
+    public uint DataCount
+    {
+      get
+      {
+        return (data != null) ? (uint)data.Count : 0;
+      }
+    }
+
     public bool HeaderRow
     {
       get;
