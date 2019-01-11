@@ -109,39 +109,18 @@ namespace CANLib
 
     public void Load(string filename, uint dataPointLimit = 0)
     {
-      if (!File.Exists(filename))
-      {
-        throw new FileNotFoundException();
-      }
+      data = new List<List<string>>();
 
-      using (StreamReader streamReader = new StreamReader(filename, Encoding.UTF8))
-      {
-        Load(streamReader, dataPointLimit);
-      }
+      Action<List<string>> callback = row => data.Add(row);
+      Read(filename, callback, dataPointLimit);
     }
 
     public void Load(StreamReader streamReader, uint dataPointLimit = 0)
     {
-      var currentCulture = Thread.CurrentThread.CurrentCulture;
-      Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-      try
-      {
-        ReadCustomHeader(streamReader);
-        if (HeaderRow)
-        {
-          ReadColumnHeader(streamReader);
-        }
-        ReadData(streamReader, dataPointLimit);
+      data = new List<List<string>>();
 
-        if (!LoadValidate())
-        {
-          throw new DataMisalignedException();
-        }
-      }
-      finally
-      {
-        Thread.CurrentThread.CurrentCulture = currentCulture;
-      }
+      Action<List<string>> callback = row => data.Add(row);
+      Read(streamReader, callback, dataPointLimit);
     }
 
     protected virtual bool LoadValidate()
@@ -191,6 +170,55 @@ namespace CANLib
       return fields;
     }
 
+    public void Read(string filename, Action<List<string>> callback, uint dataPointLimit = 0)
+    {
+      if (!File.Exists(filename))
+      {
+        throw new FileNotFoundException();
+      }
+
+      using (StreamReader streamReader = new StreamReader(filename, Encoding.UTF8))
+      {
+        Read(streamReader, callback, dataPointLimit);
+      }
+    }
+
+    public void Read(StreamReader streamReader, Action<List<string>> callback, uint dataPointLimit = 0)
+    {
+      var currentCulture = Thread.CurrentThread.CurrentCulture;
+      Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+      try
+      {
+        ReadCustomHeader(streamReader);
+
+        if (HeaderRow)
+        {
+          ReadColumnHeader(streamReader);
+        }
+
+        uint dataPointCount = 0;
+        while ((dataPointLimit == 0) || (dataPointCount < dataPointLimit))
+        {
+          List<string> row = ReadDataRow(streamReader);
+          if (row == null)
+          {
+            break;
+          }
+          callback(row);
+          dataPointCount++;
+        }
+
+        if (!LoadValidate())
+        {
+          throw new DataMisalignedException();
+        }
+      }
+      finally
+      {
+        Thread.CurrentThread.CurrentCulture = currentCulture;
+      }
+    }
+
     protected void ReadBlankLine(StreamReader streamReader)
     {
       ReadFixedString(streamReader, "");
@@ -218,26 +246,19 @@ namespace CANLib
     {
     }
 
-    void ReadData(StreamReader streamReader, uint dataPointLimit = 0)
+    List<string> ReadDataRow(StreamReader streamReader)
     {
-      data = new List<List<string>>();
-
-      int dataPointCount = 0;
       while (!streamReader.EndOfStream)
       {
         string line = streamReader.ReadLine();
         line = line.Trim();
         if (line.Length > 0)
         {
-          List<string> row = ParseRow(line);
-          data.Add(row);
-          dataPointCount++;
-          if ((dataPointLimit > 0) && (dataPointCount >= dataPointLimit))
-          {
-            return;
-          }
+          return ParseRow(line);
         }
       }
+
+      return null;
     }
 
     protected void ReadFixedString(StreamReader streamReader, string expected)
