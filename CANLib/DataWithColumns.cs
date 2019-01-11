@@ -141,32 +141,6 @@ namespace CANLib
       return true;
     }
 
-    protected void ReadBlankLine(StreamReader streamReader)
-    {
-      ReadFixedString(streamReader, "");
-    }
-
-    protected void ReadFixedString(StreamReader streamReader, string expected)
-    {
-      string line = streamReader.ReadLine();
-      if (line != expected)
-      {
-        throw new DataMisalignedException();
-      }
-    }
-
-    static readonly Regex regexSeparatedValuesByComma = new Regex(
-      @"^(?:(?:^|,)(?:()|([^""][^,]*)|""((?:[^""]|"""")*)""))+$",
-      RegexOptions.Compiled | RegexOptions.CultureInvariant);
-
-    static readonly Regex regexSeparatedValuesBySemicolon = new Regex(
-      @"^(?:(?:^|;)(?:()|([^""][^;]*)|""((?:[^""]|"""")*)""))+$",
-      RegexOptions.Compiled | RegexOptions.CultureInvariant);
-
-    static readonly Regex regexSeparatedValuesBySpace = new Regex(
-      @"^(?:(?:^| )(?:()|([^""][^ ]*)|""((?:[^""]|"""")*)""))+$",
-      RegexOptions.Compiled | RegexOptions.CultureInvariant);
-
     List<string> ParseRow(string line)
     {
       List<string> fields = new List<string>();
@@ -209,6 +183,23 @@ namespace CANLib
       return fields;
     }
 
+    protected void ReadBlankLine(StreamReader streamReader)
+    {
+      ReadFixedString(streamReader, "");
+    }
+
+    static readonly Regex regexSeparatedValuesByComma = new Regex(
+      @"^(?:(?:^|,)(?:()|([^""][^,]*)|""((?:[^""]|"""")*)""))+$",
+      RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    static readonly Regex regexSeparatedValuesBySemicolon = new Regex(
+      @"^(?:(?:^|;)(?:()|([^""][^;]*)|""((?:[^""]|"""")*)""))+$",
+      RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    static readonly Regex regexSeparatedValuesBySpace = new Regex(
+      @"^(?:(?:^| )(?:()|([^""][^ ]*)|""((?:[^""]|"""")*)""))+$",
+      RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
     void ReadColumnHeader(StreamReader streamReader)
     {
       string line = streamReader.ReadLine();
@@ -238,6 +229,15 @@ namespace CANLib
             return;
           }
         }
+      }
+    }
+
+    protected void ReadFixedString(StreamReader streamReader, string expected)
+    {
+      string line = streamReader.ReadLine();
+      if (line != expected)
+      {
+        throw new DataMisalignedException();
       }
     }
 
