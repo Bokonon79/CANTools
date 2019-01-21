@@ -60,7 +60,8 @@ namespace CANLib
     {
       Comma,
       Semicolon,
-      Space
+      Space,
+      MultiSpace
     }
     public SeparatorType Separator
     {
@@ -143,6 +144,9 @@ namespace CANLib
           break;
         case SeparatorType.Space:
           regexSeparatedValues = regexSeparatedValuesBySpace;
+          break;
+        case SeparatorType.MultiSpace:
+          regexSeparatedValues = regexSeparatedValuesByMultiSpace;
           break;
       }
 
@@ -244,6 +248,10 @@ namespace CANLib
 
     static readonly Regex regexSeparatedValuesBySpace = new Regex(
       @"^(?:(?:^| )(?:()|([^""][^ ]*)|""((?:[^""]|"""")*)""))+$",
+      RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+    static readonly Regex regexSeparatedValuesByMultiSpace = new Regex(
+      @"^(?:(?:^| +)(?:()|([^""][^ ]*)|""((?:[^""]|"""")*)""))+$",
       RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
     void ReadColumnHeader(StreamReader streamReader)
