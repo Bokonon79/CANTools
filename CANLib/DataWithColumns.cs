@@ -189,17 +189,12 @@ namespace CANLib
       Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
       try
       {
-        ReadCustomHeader(streamReader);
-
-        if (HeaderRow)
-        {
-          ReadColumnHeader(streamReader);
-        }
+        ReadHeaders(streamReader);
 
         uint dataPointCount = 0;
         while ((dataPointLimit == 0) || (dataPointCount < dataPointLimit))
         {
-          List<string> row = ReadDataRow(streamReader);
+          List<string> row = ReadNext(streamReader);
           if (row == null)
           {
             break;
@@ -217,6 +212,21 @@ namespace CANLib
       {
         Thread.CurrentThread.CurrentCulture = currentCulture;
       }
+    }
+
+    public void ReadHeaders(StreamReader streamReader)
+    {
+        ReadCustomHeader(streamReader);
+
+        if (HeaderRow)
+        {
+            ReadColumnHeader(streamReader);
+        }
+    }
+
+    public List<string> ReadNext(StreamReader streamReader)
+    {
+        return ReadDataRow(streamReader);
     }
 
     protected void ReadBlankLine(StreamReader streamReader)
